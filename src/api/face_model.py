@@ -67,13 +67,17 @@ class FaceModel:
     def __init__(self, args):
         model = edict()
         with tf.Graph().as_default():
-            config = tf.ConfigProto()
+            #config = tf.ConfigProto()
+            #config = tf.compat.v1.ConfigProto
 
-            config.intra_op_parallelism_threads = 16
-            config.inter_op_parallelism_threads = 16
+            #config.intra_op_parallelism_threads = 16
+            #config.inter_op_parallelism_threads = 16
 
-            config.gpu_options.per_process_gpu_memory_fraction = 0.2
-            sess = tf.Session(config=config)
+            #config.gpu_options.per_process_gpu_memory_fraction = 0.2
+            gpu_options = tf.compat.v1.GPUOptions(per_process_gpu_memory_fraction=0.2)
+            config=tf.compat.v1.ConfigProto(gpu_options=gpu_options)
+            #sess = tf.Session(config=config)
+            sess = tf.compat.v1.Session(config=config)
             with sess.as_default():
                 self.pnet, self.rnet, self.onet = detect_face.create_mtcnn(sess, None)
 

@@ -29,9 +29,12 @@ from __future__ import print_function
 from six import string_types, iteritems
 
 import numpy as np
-import tensorflow as tf
+#import tensorflow as tf
 import cv2
 import os
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
 
 def layer(op):
     '''Decorator for composable network layers.'''
